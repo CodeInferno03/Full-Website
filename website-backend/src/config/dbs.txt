@@ -1,0 +1,24 @@
+Users Collection:
+Name: users
+Fields:
+    _id:                MongoDB ObjectID (auto assigned)
+    username:           String, unique
+    email:              String, unique
+    password:           String (hashed)
+    profilePicture:     String (URL to image)
+    savedRecipes:       Array of ObjectIDs (referencing the `recipes` collection)
+    createdAt:          Date
+    updatedAt:          Date
+
+Recipes Collection
+Name: recipes
+Fields:
+    _id:                MongoDB ObjectID (auto assigned)
+    recipeName:         String
+    recipeCreator:      ObjectID (referencing the `users` collection)
+    recipePicture:      String (URL to image)
+    recipeTimeTaken:    Number (total time for recipe in seconds)
+    recipeIngredients:  Array of {ingredientName: String, quantity: String}
+    recipeSteps:        Array of Strings (each representing a step)
+    createdAt:          Date
+    updatedAt:          Date
