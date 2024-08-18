@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
+require('dotenv').config();
 
-export async function connectDB() {
-  const mongoDBUri = "mongodb://127.0.0.1:27017/PersonalWebsite";
+exports.connectDB = async () => {
+  const mongoDBUri = process.env.MONGODB_URI;
 
   try {
     const conn = await mongoose.connect(mongoDBUri);
     console.log(`MongoDB connected: ${conn.connection.host}`);
   } catch (err) {
     console.log(`Failed to connect to MongoDB. ${err}`);
-    throw new Error("Database connection failed");
+    process.exit(1);
   }
-}
+};

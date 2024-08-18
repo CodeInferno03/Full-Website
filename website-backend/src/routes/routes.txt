@@ -1,0 +1,14 @@
+Planned Routes:
+/					                                                    - redirect to home if logged in else login
+/login					                                                - login page
+/signup					                                                - sign up page
+/user/:username/home			                                        - Each user's home page
+/user/:username/saved			                                        - List of all saved recipes for one user
+/user/:username/saved/:recipeId/:recipeName	                            - An individual saved recipe
+/user/:username/created                                                 - page showing all recipes made by a certain user
+/user/:username/created/:recipeId/:recipeName                           - An individual recipe created by a user
+/user/:username/created/:recipeId/:recipeName/update                    - Page to update a created recipe
+/user/:username/profile			                                        - A profile page for an individual user
+/user/:username/recipes/all				                                - A page containing all uploaded recipes
+/user/:username/recipes/:recipeId/:recipeName		                    - A page to view the details on an individual recipe
+/user/:username/recipes/create				                            - A page to upload a recipe
