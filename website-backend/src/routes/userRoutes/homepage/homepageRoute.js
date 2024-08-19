@@ -4,12 +4,21 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:username/home").get((req, res) => {
-  res.json({
-    success: true,
-    statusCode: res.statusCode,
-    requestType: "GET",
+router
+  .route("/:userId/home")
+  .get((req, res) => {
+    res.json({
+      success: true,
+      statusCode: res.statusCode,
+      requestType: "GET",
+    });
+  })
+  .delete((req, res) => {
+    res.json({
+      success: true,
+      statusCode: res.statusCode,
+      requestType: "DELETE",
+    });
   });
-});
 
 module.exports = router;

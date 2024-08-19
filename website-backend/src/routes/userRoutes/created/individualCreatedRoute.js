@@ -5,7 +5,7 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/:username/created/:recipeId/:recipeName")
+  .route("/:userId/created/:recipeId/:recipeName")
   .get((req, res) => {
     res.json({
       success: true,

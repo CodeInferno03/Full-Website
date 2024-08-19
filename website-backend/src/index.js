@@ -2,11 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/dbConn").connectDB;
 
-// routes beginning with '/'
+// routes beginning with '/api'
 const loginRoute = require("./routes/slashRoutes/loginRoute");
 const signupRoute = require("./routes/slashRoutes/signupRoute");
+const basicSlashRoute = require('./routes/slashRoutes/basicSlashRoute')
 
-// routes beginning with '/user'
+// routes beginning with '/api/user'
 // created
 const userAllCreatedRoute = require("./routes/userRoutes/created/allCreatedRoute");
 const userIndividualCreatedRoute = require("./routes/userRoutes/created/individualCreatedRoute");
@@ -28,30 +29,34 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT;
 
+// app.use(express.json());
+
 // endpoints
-app.use("/", loginRoute);
+app.use("/api", basicSlashRoute);
 
-app.use("/", signupRoute);
+app.use("/api", loginRoute);
 
-app.use("/user", userHomepageRoute);
+app.use("/api", signupRoute);
 
-app.use("/user", userProfileRoute);
+app.use("/api/user", userHomepageRoute);
 
-app.use("/user", userAllCreatedRoute);
+app.use("/api/user", userProfileRoute);
 
-app.use("/user", userIndividualCreatedRoute);
+app.use("/api/user", userAllCreatedRoute);
 
-app.use("/user", userUpdateCreatedRoute);
+app.use("/api/user", userIndividualCreatedRoute);
 
-app.use("/user", userAllSavedRoute);
+app.use("/api/user", userUpdateCreatedRoute);
 
-app.use("/user", userIndividualSavedRoute);
+app.use("/api/user", userAllSavedRoute);
 
-app.use("/user", userAllRecipesRoute);
+app.use("/api/user", userIndividualSavedRoute);
 
-app.use("/user", userCreateRecipeRoute);
+app.use("/api/user", userAllRecipesRoute);
 
-app.use("/user", userIndividualRecipeRoute);
+app.use("/api/user", userCreateRecipeRoute);
+
+app.use("/api/user", userIndividualRecipeRoute);
 
 app.listen(PORT, function () {
   console.log(`App listening on Port ${PORT}`);

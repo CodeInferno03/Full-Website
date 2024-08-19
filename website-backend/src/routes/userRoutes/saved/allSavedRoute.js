@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:username/saved").get((req, res) => {
+router.route("/:userId/saved").get((req, res) => {
   res.json({
     success: true,
     statusCode: res.statusCode,
@@ -12,4 +12,4 @@ router.route("/:username/saved").get((req, res) => {
   });
 });
 
-module.exports = router();
+module.exports = router;

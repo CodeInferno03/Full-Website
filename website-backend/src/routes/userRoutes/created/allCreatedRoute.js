@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:username/created").get((req, res) => {
+router.route("/:userId/created").get((req, res) => {
   res.json({
     success: true,
     statusCode: res.statusCode,

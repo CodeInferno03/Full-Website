@@ -55,9 +55,16 @@ exports.RecipesSchema = new mongoose.Schema({
     unique: false,
   },
   recipeTimeTaken: {
-    type: Number,
-    required: true,
-    unique: false,
+    type: new mongoose.Schema({
+      prepTime: {
+        type: Number,
+        required: true,
+      },
+      cookingTime: {
+        type: Number,
+        required: true,
+      },
+    })
   },
   recipeIngredients: {
     type: new mongoose.Schema({
