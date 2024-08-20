@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/recipes/all").get((req, res) => {
+router.route("/:userId/home/recipes/all").get((req, res) => {
   res.json({
     success: true,
     statusCode: res.statusCode,

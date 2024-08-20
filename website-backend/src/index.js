@@ -16,6 +16,7 @@ const userUpdateCreatedRoute = require("./routes/userRoutes/created/updateCreate
 const userHomepageRoute = require("./routes/userRoutes/homepage/homepageRoute");
 // profile
 const userProfileRoute = require("./routes/userRoutes/profile/profileRoute");
+const userProfileChangePasswordRoute = require('./routes/userRoutes/profile/profileChangePasswordRoute');
 // saved
 const userAllSavedRoute = require("./routes/userRoutes/saved/allSavedRoute");
 const userIndividualSavedRoute = require("./routes/userRoutes/saved/individualSavedRoute");
@@ -41,6 +42,8 @@ app.use("/api", signupRoute);
 app.use("/api/user", userHomepageRoute);
 
 app.use("/api/user", userProfileRoute);
+
+app.use("/api/user", userProfileChangePasswordRoute);
 
 app.use("/api/user", userAllCreatedRoute);
 
