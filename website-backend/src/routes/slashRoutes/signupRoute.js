@@ -1,5 +1,5 @@
 const express = require("express");
-const makeUsersDBEntry = require('../../utils/makeDBEntry').makeUsersDBEntry;
+const makeUsersDBEntry = require('../../utils/db_utils/makeDBEntry').makeUsersDBEntry;
 const hashPassword = require('../../utils/passwordHasher').hashPassword;
 
 const router = express.Router();
@@ -13,7 +13,6 @@ router.route("/signup").post(async (req, res) => {
       success: false,
       message: "\"Content-Type\" header must be set to \"application/json\"",
       statusCode: res.statusCode,
-      requestType: 'POST',
     });
   } else {
     // filling in some default values to the values not originally sent
@@ -30,8 +29,6 @@ router.route("/signup").post(async (req, res) => {
         success: true,
         message: "user data successfully uploaded!",
         statusCode: res.statusCode,
-        requestType: 'POST',
-        data: req.body,
       });
     } catch (err) {
       console.log(err);
@@ -39,7 +36,6 @@ router.route("/signup").post(async (req, res) => {
         success: false,
         message: "error uploading data!",
         statusCode: res.statusCode,
-        requestType: 'POST',
       })
     }
   }

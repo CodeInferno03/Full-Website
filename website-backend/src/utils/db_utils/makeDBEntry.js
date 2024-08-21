@@ -1,5 +1,5 @@
 // functions to make entries into both DBs
-const Models = require('../config/dbModels');
+const Models = require('../../config/dbModels');
 
 exports.makeUsersDBEntry = async (data) => {
     try {

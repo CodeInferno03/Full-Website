@@ -1,11 +1,11 @@
-const UsersModel = require("../config/dbModels").UsersModel;
-const RecipesModel = require("../config/dbModels").RecipesModel;
+const UsersModel = require("../../config/dbModels").UsersModel;
+const RecipesModel = require("../../config/dbModels").RecipesModel;
 
 // All the functions return Promises for consistency
 
-const getOneEntryUsers = async (data) => {
+const deleteOneEntryUsers = async (data) => {
   try {
-    const User = await UsersModel.findOne(data);
+    const User = await UsersModel.deleteOne(data);
     return User;
   } catch (err) {
     return new Promise((resolve, reject) => {
@@ -14,9 +14,9 @@ const getOneEntryUsers = async (data) => {
   }
 };
 
-const getMultipleEntriesUsers = async (data) => {
+const deleteMultipleEntriesUsers = async (data) => {
   try {
-    const User = await UsersModel.find(data);
+    const User = await UsersModel.deleteMany(data);
     return User;
   } catch (err) {
     return new Promise((resolve, reject) => {
@@ -25,9 +25,9 @@ const getMultipleEntriesUsers = async (data) => {
   }
 };
 
-const getOneEntryRecipes = async (data) => {
+const deleteOneEntryRecipes = async (data) => {
   try {
-    const Recipe = await RecipesModel.findOne(data);
+    const Recipe = await RecipesModel.deleteOne(data);
     return Recipe;
   } catch (err) {
     return new Promise((resolve, reject) => {
@@ -36,9 +36,9 @@ const getOneEntryRecipes = async (data) => {
   }
 };
 
-const getMultipleEntriesRecipes = async (data) => {
+const deleteMultipleEntriesRecipes = async (data) => {
   try {
-    const Recipe = await RecipesModel.find(data);
+    const Recipe = await RecipesModel.deleteMany(data);
     return Recipe;
   } catch (err) {
     return new Promise((resolve, reject) => {
@@ -48,8 +48,8 @@ const getMultipleEntriesRecipes = async (data) => {
 };
 
 module.exports = {
-  getOneEntryUsers,
-  getMultipleEntriesUsers,
-  getOneEntryRecipes,
-  getMultipleEntriesRecipes,
+  deleteOneEntryUsers,
+  deleteMultipleEntriesUsers,
+  deleteOneEntryRecipes,
+  deleteMultipleEntriesRecipes,
 };

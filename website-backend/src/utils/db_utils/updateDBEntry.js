@@ -1,5 +1,5 @@
-const UsersModel = require("../config/dbModels").UsersModel;
-const RecipesModel = require("../config/dbModels").RecipesModel;
+const UsersModel = require("../../config/dbModels").UsersModel;
+const RecipesModel = require("../../config/dbModels").RecipesModel;
 
 // All the functions return Promises for consistency
 

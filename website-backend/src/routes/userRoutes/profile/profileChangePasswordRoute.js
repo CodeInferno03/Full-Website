@@ -3,9 +3,9 @@ const {
   hashPassword,
   comparePassword,
 } = require("../../../utils/passwordHasher");
-const getOneEntryUsers = require("../../../utils/getDBEntry").getOneEntryUsers;
+const getOneEntryUsers = require("../../../utils/db_utils/getDBEntry").getOneEntryUsers;
 const updateOneEntryUsers =
-  require("../../../utils/updateDBEntry").updateOneEntryUsers;
+  require("../../../utils/db_utils/updateDBEntry").updateOneEntryUsers;
 
 const router = express.Router();
 

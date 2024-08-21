@@ -67,16 +67,7 @@ exports.RecipesSchema = new mongoose.Schema({
     })
   },
   recipeIngredients: {
-    type: new mongoose.Schema({
-      ingredientName: {
-        type: String,
-        required: true,
-      },
-      quantity: {
-        type: String,
-        required: true,
-      },
-    }),
+    type: Array,
     required: true,
     unique: false,
   },

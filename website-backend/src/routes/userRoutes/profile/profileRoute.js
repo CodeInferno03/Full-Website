@@ -1,10 +1,7 @@
 const express = require("express");
-const UsersModel = require("../../../config/dbModels").UsersModel;
-const {
-  hashPassword,
-  comparePassword,
-} = require("../../../utils/passwordHasher");
-const getOneEntryUsers = require("../../../utils/getDBEntry").getOneEntryUsers;
+const getOneEntryUsers = require("../../../utils/db_utils/getDBEntry").getOneEntryUsers;
+const updateOneEntryUsers =
+  require("../../../utils/db_utils/updateDBEntry").updateOneEntryUsers;
 
 const router = express.Router();
 
@@ -35,11 +32,27 @@ router
     });
   })
   .put((req, res) => {
-    res.json({
-      success: true,
-      statusCode: res.statusCode,
-      requestType: "PUT",
-    });
+    // req will have all the arguments except saved-recipes, createdAt, and updatedAt, and password
+    req.body.updatedDate = Date.now();
+
+    updateOneEntryUsers({ _id: `${req.params.userId}` }, req.body).then(
+      (result) => {
+        if (result.success !== false) {
+          res.status(201).json({
+            success: true,
+            message: "data successfully changed",
+            statusCode: res.statusCode,
+            data: req.body,
+          });
+        } else {
+          res.status(400).json({
+            success: false,
+            message: result.message,
+            statusCode: res.statusCode,
+          });
+        }
+      }
+    );
   });
 
 module.exports = router;
