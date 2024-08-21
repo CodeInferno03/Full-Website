@@ -1,5 +1,6 @@
 const express = require("express");
 const { getOneEntryRecipes } = require("../../../utils/db_utils/getDBEntry");
+const { updateOneEntryUsers } = require("../../../utils/db_utils/updateDBEntry");
 
 const router = express.Router();
 
@@ -27,6 +28,25 @@ router
         data: null,
       });
     }
+  }).put((req, res) => {
+    updateOneEntryUsers({ _id: `${req.params.userId}` }, req.body).then((result) => {
+      if (result.success !== false) {
+        res.status(201).json({
+          success: true,
+          statusCode: res.statusCode,
+          message: 'saved recipes updated',
+          data: result,
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          statusCode: res.statusCode,
+          message: result.message,
+          data: null,
+        });
+      }
+    });
+
   });
 
 module.exports = router;
