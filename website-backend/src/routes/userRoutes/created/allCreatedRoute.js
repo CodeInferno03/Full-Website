@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/home/created-recipes/all").get(async (req, res) => {
+router.route("/:userId/created-recipes/all").get(async (req, res) => {
   const userDetails = await getOneEntryUsers({ _id: `${req.params.userId}` });
 
   getMultipleEntriesRecipes({ recipeCreator: `${userDetails.username}` }).then(

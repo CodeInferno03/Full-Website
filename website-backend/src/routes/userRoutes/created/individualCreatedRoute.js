@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/:userId/home/created-recipes/:recipeId/:recipeName")
+  .route("/:userId/created-recipes/:recipeId/:recipeName")
   .get(async (req, res) => {
     getOneEntryRecipes({ _id: `${req.params.recipeId}` }).then((result) => {
       if (result.success !== false) {

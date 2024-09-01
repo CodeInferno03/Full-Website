@@ -76,6 +76,23 @@ exports.RecipesSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
+  recipePictures: {
+    type: Array,
+    required: true,
+    unique: false,
+  },
+  // recipeComments: {
+  //   type: new mongoose.Schema({
+  //     userId: {
+  //       type: isObjectId,
+  //       required: true,
+  //     },
+  //     comment: {
+  //       type: String,
+  //       required: true
+  //     }
+  //   }),
+  // },
   createdAt: {
     type: String,
     required: true,

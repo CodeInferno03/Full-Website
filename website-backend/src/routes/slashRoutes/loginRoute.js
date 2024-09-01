@@ -29,7 +29,7 @@ router.route("/login").post(async (req, res) => {
       });
     } else {
 
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         statusCode: res.statusCode,
         message: "data found",

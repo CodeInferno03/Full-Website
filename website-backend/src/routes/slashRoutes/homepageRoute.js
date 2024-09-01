@@ -5,7 +5,7 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/:userId/home")
+  .route("/home")
   .get((req, res) => {
     res.json({
       success: true,

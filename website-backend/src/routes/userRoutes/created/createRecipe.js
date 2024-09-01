@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/home/recipes/create").post(async (req, res) => {
+router.route("/:userId/recipes/create-recipe").post(async (req, res) => {
   const recipeCreator = await getOneEntryUsers({ _id: `${req.params.userId}` })
 
   req.body.createdAt = req.body.updatedAt = Date.now();

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/home/recipes/all").get((req, res) => {
+router.route("/recipes/all").get((req, res) => {
   getMultipleEntriesRecipes({}).then((result) => {
     if (Array.isArray(result)) {
       res.json({

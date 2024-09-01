@@ -7,13 +7,12 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/:userId/home/recipes/:recipeId/:recipeName")
+  .route("/recipes/:recipeId/:recipeName") // recipename either with `-` or `_` as delimiter
   .get(async (req, res) => {
     try {
       const recipeDetails = await getOneEntryRecipes({
         _id: `${req.params.recipeId}`,
       });
-
       res.json({
         success: true,
         statusCode: res.statusCode,
