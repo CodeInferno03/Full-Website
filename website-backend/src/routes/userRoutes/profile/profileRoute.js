@@ -10,12 +10,11 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/:userId/home/profile")
-  .get(restrictToLoggedInUser, (req, res) => {
-    const userIdVal = req.params.userId;
+  .route("/:userName/home/profile")
+  .get(restrictToLoggedInUser, async (req, res) => {
 
     // we get the data of the current user to display
-    getOneEntryUsers({ _id: `${userIdVal}` }).then((result) => {
+    getOneEntryUsers({ username: `${req.params.userName}` }).then((result) => {
       // if the data was successfully retrieved then send it
       if (result.success !== false) {
         res.json({
@@ -37,7 +36,7 @@ router
     // req will have all the arguments except saved-recipes, createdAt, and updatedAt, and password
     req.body.updatedDate = Date.now();
 
-    updateOneEntryUsers({ _id: `${req.params.userId}` }, req.body).then(
+    updateOneEntryUsers({ username: `${req.params.userName}` }, req.body).then(
       (result) => {
         if (result.success !== false) {
           res.status(201).json({

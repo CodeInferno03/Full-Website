@@ -50,6 +50,11 @@ exports.RecipesSchema = new mongoose.Schema({
     unique: false,
   },
   recipePicture: {
+    type: Array,  // 2 pictures, one banner for the page itself and one for the display on the recipes/all page
+    required: true,
+    unique: false,
+  },
+  recipeBlurb: {
     type: String,
     required: false,
     unique: false,
@@ -76,23 +81,11 @@ exports.RecipesSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
-  recipePictures: {
+  recipeStepsPictures: {
     type: Array,
     required: true,
     unique: false,
   },
-  // recipeComments: {
-  //   type: new mongoose.Schema({
-  //     userId: {
-  //       type: isObjectId,
-  //       required: true,
-  //     },
-  //     comment: {
-  //       type: String,
-  //       required: true
-  //     }
-  //   }),
-  // },
   recipeRating: {
     type: Number,
     required: false,

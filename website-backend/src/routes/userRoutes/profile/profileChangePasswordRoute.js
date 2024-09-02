@@ -12,9 +12,9 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/home/profile/change-password").put(restrictToLoggedInUser, async (req, res) => {
+router.route("/:userName/home/profile/change-password").put(restrictToLoggedInUser, async (req, res) => {
   // req: { oldPassword: String, newPassword: String }
-  getOneEntryUsers({ _id: `${req.params.userId}` }).then(async (result) => {
+  getOneEntryUsers({ username: `${req.params.userName}` }).then(async (result) => {
     if (!(await comparePassword(req.body.oldPassword, result.password))) {
       // if the password entered is incorrect
       res.status(403).json({
@@ -33,7 +33,7 @@ router.route("/:userId/home/profile/change-password").put(restrictToLoggedInUser
       // if the password is correct, allow the user to change it
       const newHashedPassword = await hashPassword(req.body.newPassword);
       updateOneEntryUsers(
-        { _id: `${req.params.userId}` },
+        { username: `${req.params.username}` },
         { updatedAt: Date.now(), password: newHashedPassword }
       );
       res.json({

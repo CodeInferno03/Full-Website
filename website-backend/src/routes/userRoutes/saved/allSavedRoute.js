@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/saved-recipes/all").get(restrictToLoggedInUser, (req, res) => {
+router.route("/:userName/saved-recipes/all").get(restrictToLoggedInUser, (req, res) => {
   res.json({
     success: true,
     statusCode: res.statusCode,

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cookieParser = require('cookie-parser')
 const connectDB = require("./config/dbConn").connectDB;
 
 // routes beginning with '/api'
@@ -29,6 +30,7 @@ const userIndividualSavedRoute = require("./routes/userRoutes/saved/individualSa
 connectDB();
 
 const app = express();
+app.use(cookieParser());
 const PORT = process.env.PORT;
 const basicPath = process.env.BASIC_PATH
 const userPath = process.env.USER_PATH

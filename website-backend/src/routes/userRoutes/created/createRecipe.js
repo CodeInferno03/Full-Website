@@ -8,13 +8,11 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/recipes/create-recipe").post(restrictToLoggedInUser, async (req, res) => {
-  const recipeCreator = await getOneEntryUsers({ _id: `${req.params.userId}` })
-
+router.route("/:userName/recipes/create-recipe").post(restrictToLoggedInUser, async (req, res) => {
   req.body.createdAt = req.body.updatedAt = Date.now();
   req.body.recipeTimeTaken.prepTime *= 60;  // converting the time taken into seconds
   req.body.recipeTimeTaken.cookingTime *= 60;
-  req.body.recipeCreator = recipeCreator.username;
+  req.body.recipeCreator = req.params.userName;
 
   try {
     await makeRecipesDBEntry(req.body);

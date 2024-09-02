@@ -9,10 +9,8 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/created-recipes/all").get(restrictToLoggedInUser, async (req, res) => {
-  const userDetails = await getOneEntryUsers({ _id: `${req.params.userId}` });
-
-  getMultipleEntriesRecipes({ recipeCreator: `${userDetails.username}` }).then(
+router.route("/:userName/created-recipes/all").get(restrictToLoggedInUser, async (req, res) => {
+  getMultipleEntriesRecipes({ recipeCreator: `${req.params.userName}` }).then(
     (result) => {
       if (result.success !== false) {
         res.json({

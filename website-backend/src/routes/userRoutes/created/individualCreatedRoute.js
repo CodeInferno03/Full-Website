@@ -1,5 +1,5 @@
 const express = require("express");
-const { getOneEntryUsers, getOneEntryRecipes } = require("../../../utils/db_utils/getDBEntry");
+const { getOneEntryRecipes } = require("../../../utils/db_utils/getDBEntry");
 const { deleteOneEntryRecipes } = require("../../../utils/db_utils/deleteDBEntry");
 const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
 
@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/:userId/created-recipes/:recipeId/:recipeName")
+  .route("/:userName/created-recipes/:recipeId/:recipeName")
   .get(restrictToLoggedInUser, async (req, res) => {
     getOneEntryRecipes({ _id: `${req.params.recipeId}` }).then((result) => {
       if (result.success !== false) {
