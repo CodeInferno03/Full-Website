@@ -3,6 +3,7 @@ const {
   hashPassword,
   comparePassword,
 } = require("../../../utils/passwordHasher");
+const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
 const getOneEntryUsers = require("../../../utils/db_utils/getDBEntry").getOneEntryUsers;
 const updateOneEntryUsers =
   require("../../../utils/db_utils/updateDBEntry").updateOneEntryUsers;
@@ -11,7 +12,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/home/profile/change-password").put(async (req, res) => {
+router.route("/:userId/home/profile/change-password").put(restrictToLoggedInUser, async (req, res) => {
   // req: { oldPassword: String, newPassword: String }
   getOneEntryUsers({ _id: `${req.params.userId}` }).then(async (result) => {
     if (!(await comparePassword(req.body.oldPassword, result.password))) {

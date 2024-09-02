@@ -1,6 +1,7 @@
 const express = require("express");
 const { getOneEntryUsers } = require("../../utils/db_utils/getDBEntry");
 const { comparePassword } = require("../../utils/passwordHasher");
+const generateToken = require("../../middleware/tokenGenerator");
 
 const router = express.Router();
 
@@ -28,6 +29,11 @@ router.route("/login").post(async (req, res) => {
         data: null,
       });
     } else {
+      const token = generateToken(userData._id);
+
+      res.cookie('access_token', `Bearer ${token}`, {
+        expires: new Date(Date.now() + 24 * 3600000)
+      })
 
       res.status(200).json({
         success: true,
@@ -35,6 +41,8 @@ router.route("/login").post(async (req, res) => {
         message: "data found",
         data: userData,
       });
+
+      
     }
   } catch (err) {
     res.status(400).json({

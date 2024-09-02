@@ -93,6 +93,11 @@ exports.RecipesSchema = new mongoose.Schema({
   //     }
   //   }),
   // },
+  recipeRating: {
+    type: Number,
+    required: false,
+    unique: false,
+  },
   createdAt: {
     type: String,
     required: true,

@@ -1,5 +1,7 @@
 const express = require("express");
-const getOneEntryUsers = require("../../../utils/db_utils/getDBEntry").getOneEntryUsers;
+const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
+const getOneEntryUsers =
+  require("../../../utils/db_utils/getDBEntry").getOneEntryUsers;
 const updateOneEntryUsers =
   require("../../../utils/db_utils/updateDBEntry").updateOneEntryUsers;
 
@@ -9,7 +11,7 @@ router.use(express.json());
 
 router
   .route("/:userId/home/profile")
-  .get((req, res) => {
+  .get(restrictToLoggedInUser, (req, res) => {
     const userIdVal = req.params.userId;
 
     // we get the data of the current user to display
@@ -31,7 +33,7 @@ router
       }
     });
   })
-  .put((req, res) => {
+  .put(restrictToLoggedInUser, (req, res) => {
     // req will have all the arguments except saved-recipes, createdAt, and updatedAt, and password
     req.body.updatedDate = Date.now();
 

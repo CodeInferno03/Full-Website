@@ -31,7 +31,7 @@ const updateMultipleEntriesUsers = async (data, updateFields) => {
 
 const updateOneEntryRecipes = async (data, updateFields) => {
   try {
-    const Recipe = await RecipesModel.updateMany(data, {
+    const Recipe = await RecipesModel.updateOne(data, {
       $set: updateFields,
     });
     return Recipe;

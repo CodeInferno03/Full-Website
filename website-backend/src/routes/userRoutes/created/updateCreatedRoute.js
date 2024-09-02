@@ -3,6 +3,7 @@ const {
   updateOneEntryRecipes,
 } = require("../../../utils/db_utils/updateDBEntry");
 const { getOneEntryRecipes } = require("../../../utils/db_utils/getDBEntry");
+const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.use(express.json());
 
 router
   .route("/:userId/created-recipes/:recipeId/:recipeName/update")
-  .get((req, res) => {
+  .get(restrictToLoggedInUser, (req, res) => {
     getOneEntryRecipes({ _id: `${req.params.recipeId}` }).then((result) => {
       if (result.success !== false) {
         res.json({
@@ -29,7 +30,7 @@ router
       }
     });
   })
-  .put((req, res) => {
+  .put(restrictToLoggedInUser, (req, res) => {
     req.body.updatedDate = Date.now();
 
     updateOneEntryRecipes({ _id: `${req.params.recipeId}` }, req.body).then(

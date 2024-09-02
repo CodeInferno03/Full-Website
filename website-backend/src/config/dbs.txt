@@ -19,6 +19,7 @@ Fields:
     recipePicture:      String (URL to image)
     recipeTimeTaken:    Number (total time for recipe in seconds)
     recipeIngredients:  Array of {ingredientName: String, quantity: String}
+    recipeRating:       A rating of the recipe from 1 - 5 (float)
     recipeSteps:        Array of Strings (each representing a step)
     createdAt:          Date
     updatedAt:          Date

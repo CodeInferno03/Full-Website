@@ -3,12 +3,13 @@ const {
   getMultipleEntriesRecipes,
   getOneEntryUsers,
 } = require("../../../utils/db_utils/getDBEntry");
+const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
 
 const router = express.Router();
 
 router.use(express.json());
 
-router.route("/:userId/created-recipes/all").get(async (req, res) => {
+router.route("/:userId/created-recipes/all").get(restrictToLoggedInUser, async (req, res) => {
   const userDetails = await getOneEntryUsers({ _id: `${req.params.userId}` });
 
   getMultipleEntriesRecipes({ recipeCreator: `${userDetails.username}` }).then(
