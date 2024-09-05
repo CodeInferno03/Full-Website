@@ -1,6 +1,7 @@
 const express = require("express");
 const { getOneEntryRecipes } = require("../../../utils/db_utils/getDBEntry");
 const { updateOneEntryUsers } = require("../../../utils/db_utils/updateDBEntry");
+const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
 
 const router = express.Router();
 
@@ -27,7 +28,8 @@ router
         data: null,
       });
     }
-  }).put((req, res) => {
+  }).put(restrictToLoggedInUser, async (req, res) => {
+    // req.body should contain all the recipe data, not just the id
     updateOneEntryUsers({ _id: `${req.params.userId}` }, req.body).then((result) => {
       if (result.success !== false) {
         res.status(201).json({
