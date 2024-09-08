@@ -29,7 +29,7 @@ router.route("/login").post(async (req, res) => {
         data: null,
       });
     } else {
-      const token = generateToken(userData._id);
+      const token = generateToken(userData._id, userData.username);
 
       res.cookie('access_token', `${token}`, {
         expires: new Date(Date.now() + (24 * 60 * 60 * 1000)) // 24 hours

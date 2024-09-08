@@ -1,7 +1,8 @@
 const express = require("express");
-const { getOneEntryRecipes } = require("../../../utils/db_utils/getDBEntry");
+const { getOneEntryRecipes, getOneEntryUsers } = require("../../../utils/db_utils/getDBEntry");
 const { updateOneEntryUsers } = require("../../../utils/db_utils/updateDBEntry");
 const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -29,8 +30,19 @@ router
       });
     }
   }).put(restrictToLoggedInUser, async (req, res) => {
+    // NEED TO TEST
     // req.body should contain all the recipe data, not just the id
-    updateOneEntryUsers({ _id: `${req.params.userId}` }, req.body).then((result) => {
+    const accessToken = req.cookies.access_token;
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+   
+    const userSavedRecipes = await getOneEntryUsers({ _id: `${decoded.userId}` }).savedRecipes;
+    const savedTime = Date.now();
+    userSavedRecipes.push({
+      recipeData: req.body,
+      savedAt: savedTime
+    });
+
+    updateOneEntryUsers({ _id: `${decoded.userId}` }, userSavedRecipes).then((result) => {
       if (result.success !== false) {
         res.status(201).json({
           success: true,
