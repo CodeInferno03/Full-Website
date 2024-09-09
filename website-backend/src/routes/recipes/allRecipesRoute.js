@@ -1,11 +1,11 @@
 const express = require("express");
-const getMultipleEntriesRecipes = require("../../../utils/db_utils/getDBEntry").getMultipleEntriesRecipes;
+const getMultipleEntriesRecipes = require("../../utils/db_utils/getDBEntry").getMultipleEntriesRecipes;
 
 const router = express.Router();
 
 router.use(express.json());
 
-router.route("/recipes/all").get((req, res) => {
+router.route("/all").get((req, res) => {
   getMultipleEntriesRecipes({}).then((result) => {
     if (Array.isArray(result)) {
       res.json({

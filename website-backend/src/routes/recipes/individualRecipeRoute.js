@@ -1,7 +1,7 @@
 const express = require("express");
-const { getOneEntryRecipes, getOneEntryUsers } = require("../../../utils/db_utils/getDBEntry");
-const { updateOneEntryUsers } = require("../../../utils/db_utils/updateDBEntry");
-const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
+const { getOneEntryRecipes, getOneEntryUsers } = require("../../utils/db_utils/getDBEntry");
+const { updateOneEntryUsers } = require("../../utils/db_utils/updateDBEntry");
+const restrictToLoggedInUser = require("../../middleware/checkLoggedIn");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(express.json());
 
 router
-  .route("/recipes/:recipeId/:recipeName") // recipename either with `-` or `_` as delimiter
+  .route("/:recipeId([0-9a-fA-F]{24})/:recipeName") // the regex is 24 chars hex (mongodb id format)
   .get(async (req, res) => {
     try {
       const recipeDetails = await getOneEntryRecipes({

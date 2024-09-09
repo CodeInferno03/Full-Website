@@ -1,35 +1,19 @@
 const express = require("express");
 const {
   getOneEntryRecipes,
-  getMultipleEntriesUsers,
-} = require("../../../utils/db_utils/getDBEntry");
+} = require("../../utils/db_utils/getDBEntry");
 const {
   deleteOneEntryRecipes,
-} = require("../../../utils/db_utils/deleteDBEntry");
-const restrictToLoggedInUser = require("../../../middleware/checkLoggedIn");
-const validateCookie = require("../../../middleware/validateCookie");
+} = require("../../utils/db_utils/deleteDBEntry");
+const restrictToLoggedInUser = require("../../middleware/checkLoggedIn");
 
 const router = express.Router();
 
 router.use(express.json());
 
 router
-  .route("/:userName/created-recipes/:recipeId/:recipeName")
+  .route("/:recipeId([0-9a-fA-F]{24})/:recipeName")
   .get(restrictToLoggedInUser, async (req, res) => {
-    const isValidCookie = await validateCookie(
-      req.cookies.access_token,
-      req.params.userName
-    );
-
-    if (!isValidCookie) {
-      res.status(403).json({
-        success: false,
-        statusCode: res.statusCode,
-        message: `invalid request!`,
-        data: null,
-      });
-    }
-
     getOneEntryRecipes({ _id: `${req.params.recipeId}` }).then((result) => {
       if (result.success !== false) {
         res.json({
@@ -48,20 +32,9 @@ router
       }
     });
   })
-  .delete(restrictToLoggedInUser, async (req, res) => {
-    const isValidCookie = await validateCookie(
-      req.cookies.access_token,
-      req.params.userName
-    );
-
-    if (!isValidCookie) {
-      res.status(403).json({
-        success: false,
-        statusCode: res.statusCode,
-        message: `invalid request!`,
-        data: null,
-      });
-    } else {
+  .delete(
+    restrictToLoggedInUser,
+    async (req, res) => {
       deleteOneEntryRecipes({ _id: `${req.params.recipeId}` }).then(
         (result) => {
           if (result.success !== false) {
@@ -84,6 +57,6 @@ router
     }
 
     // have to make logic to delete this from any users' saved recipes as well
-  });
+  );
 
 module.exports = router;

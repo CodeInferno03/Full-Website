@@ -2,6 +2,7 @@ const express = require("express");
 const { getOneEntryUsers } = require("../../utils/db_utils/getDBEntry");
 const { comparePassword } = require("../../utils/passwordHasher");
 const generateToken = require("../../utils/tokenGenerator");
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
