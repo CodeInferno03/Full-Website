@@ -35,15 +35,16 @@ router
     const accessToken = req.cookies.access_token;
     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
    
-    const userSavedRecipes = await getOneEntryUsers({ _id: `${decoded.userId}` }).savedRecipes;
+    const userSavedRecipes = await getOneEntryUsers({ _id: `${decoded.userId}` }).savedRecipes || [];
     const savedTime = Date.now();
     userSavedRecipes.push({
       recipeData: req.body,
       savedAt: savedTime
     });
 
-    updateOneEntryUsers({ _id: `${decoded.userId}` }, userSavedRecipes).then((result) => {
+    updateOneEntryUsers({ _id: `${decoded.userId}` }, { savedRecipes: userSavedRecipes }).then((result) => {
       if (result.success !== false) {
+        console.log(`success is not false!`)
         res.status(201).json({
           success: true,
           statusCode: res.statusCode,

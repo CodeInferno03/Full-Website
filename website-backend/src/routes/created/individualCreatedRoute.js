@@ -6,6 +6,7 @@ const {
   deleteOneEntryRecipes,
 } = require("../../utils/db_utils/deleteDBEntry");
 const restrictToLoggedInUser = require("../../middleware/checkLoggedIn");
+const handleDeleteRecipe = require("../../middleware/handleDeleteRecipes");
 
 const router = express.Router();
 
@@ -38,6 +39,8 @@ router
       deleteOneEntryRecipes({ _id: `${req.params.recipeId}` }).then(
         (result) => {
           if (result.success !== false) {
+            handleDeleteRecipe(req.params.recipeId);
+
             res.status(204).json({
               success: true,
               statusCode: res.statusCode,
@@ -45,6 +48,9 @@ router
               data: result,
             });
           } else {
+
+            
+
             res.status(400).json({
               success: false,
               statusCode: res.statusCode,

@@ -25,16 +25,27 @@ router
           // searching for a matching recipeId in savedRecipes
           const correctSavedRecipe = result.savedRecipes.filter(
             (savedRecipe) => {
-              savedRecipe.recipeData._id === req.params.recipeId;
+              return savedRecipe.recipeData._id === req.params.recipeId
+                ? savedRecipe
+                : [];
             }
           );
 
-          res.status(200).json({
-            success: false,
-            statusCode: res.statusCode,
-            message: `Saved recipe retrieved successfully!`,
-            data: correctSavedRecipe.recipeData,
-          });
+          if (correctSavedRecipe.length === 0) {
+            res.status(404).json({
+              success: false,
+              statusCode: res.statusCode,
+              message: `Recipe not found!`,
+              data: null,
+            });
+          } else {
+            res.status(200).json({
+              success: true,
+              statusCode: res.statusCode,
+              message: `Saved recipe retrieved successfully!`,
+              data: correctSavedRecipe[0].recipeData,
+            });
+          }
         }
       }
     );

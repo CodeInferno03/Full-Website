@@ -11,7 +11,6 @@ const recipesIndex = require("./routes/recipes/recipesIndex");
 const profileIndex = require("./routes/profile/profileIndex");
 const savedIndex = require("./routes/saved/savedIndex");
 const createdIndex = require("./routes/created/createdIndex");
-const homepageRoute = require("./routes/home/homepageRoute");
 
 connectDB();
 
